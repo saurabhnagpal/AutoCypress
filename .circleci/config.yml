@@ -1,0 +1,39 @@
+version: 2.1
+
+jobs:
+  # Define the job to install dependencies and run Cypress tests
+  cypress:
+    docker:
+      - image: cypress/included:12.0.0 # Cypress Docker image with everything preinstalled
+    steps:
+      - checkout # Checkout the code from the repository
+      - run:
+          name: Install Dependencies
+          command: |
+            npm install # Install your project dependencies
+      - run:
+          name: Run Cypress Tests
+          command: |
+            npx cypress run # Run Cypress tests
+
+  # Define the job to install dependencies and run Cypress tests in headless mode
+  cypress-headless:
+    docker:
+      - image: cypress/included:12.0.0 # Cypress Docker image
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: |
+            npm install
+      - run:
+          name: Run Cypress Tests in Headless Mode
+          command: |
+            npx cypress run --headless --browser chrome # Run in headless mode with Chrome
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - cypress # The job to run Cypress tests
