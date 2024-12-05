@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 describe("Check for broken links on google.com", () => {
-  it("Should find and report broken links", () => {
+  it("Should find and report broken links.", () => {
     // Open google.com
     cy.visit("https://www.google.com");
 
