@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   cypress:
     docker:
-      - image: cypress/included:13.16.1 # Using the specific version of Cypress image
+      - image: cypress/included:13.16.1 # Using Cypress Docker image
     working_directory: ~/repo
     steps:
       - checkout
@@ -25,8 +25,8 @@ jobs:
             - ./node_modules # Cache node_modules
           key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }} # Cache key using package files
 
-  workflows:
-    version: 2
-    test:
-      jobs:
-        - cypress
+workflows:
+  version: 2
+  test:
+    jobs:
+      - cypress # Reference the job name directly in the workflow
